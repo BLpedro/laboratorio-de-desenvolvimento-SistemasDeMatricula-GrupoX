@@ -5,7 +5,6 @@ Escreva um ou dois parágrafo resumindo o objetivo do seu projeto.
 * Bernardo Gonçalves Levy
 * João Vitor Neri Moreira
 * Pedro Barros Lemos
-* Nome completo do aluno 4
 
 ## Orientadores
 * Nome completo do professor 1
