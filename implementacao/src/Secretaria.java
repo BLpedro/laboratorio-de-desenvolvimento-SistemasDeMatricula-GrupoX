@@ -1,9 +1,17 @@
 package src;
 
+import java.util.List;
+
 public class Secretaria extends Usuario{
 
-    public void gerarCurriculo(){}
+    public Secretaria(String nome, String email, String senha) {
+        super(nome, email, senha);
+    }
 
-    public void verificarIformacoes(){}
+    public void gerarCurriculo(List<Disciplina> disciplinas){
+        //stub
+    }
+
+    public void verificarInformacoes(){}
 
 }

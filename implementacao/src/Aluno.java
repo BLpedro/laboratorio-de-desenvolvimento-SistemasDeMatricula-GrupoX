@@ -1,21 +1,44 @@
 package src;
 
-public class Aluno extends Usuario{
 
-    int numMatricula;
-    Matricula matricula;
-    
-    public int getNumMatricula() {
-        return numMatricula;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Aluno extends Usuario {
+    private String matricula;
+    private List<Matricula> historico;
+
+    public Aluno(String nome, String email, String senha, String matricula) {
+        super(nome, email, senha);
+        this.matricula = matricula;
+        this.historico = new ArrayList<>();
     }
-    public void setNumMatricula(int numMatricula) {
-        this.numMatricula = numMatricula;
+
+    public void inscreverDisciplina(Disciplina disciplina) {
+        // stub
     }
-    public Matricula getMatricula() {
+
+    public void cancelarMatricula(Disciplina disciplina) {
+        // stub
+    }
+
+    public void consultarDisciplinasMatriculadas() {
+        // stub
+    }
+
+    public String getMatricula() {
         return matricula;
     }
-    public void setMatricula(Matricula matricula) {
+
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-    
+
+    public List<Matricula> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<Matricula> historico) {
+        this.historico = historico;
+    }
 }
