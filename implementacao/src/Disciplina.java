@@ -4,82 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
-    String  codigo;
-    String materia;
-    boolean obrigatoria;
-    private boolean ativa;
-    Curso curso;
-    Professor professor;
-    int creditos;
-    List<Aluno> alunos;
-
-      public static final int MIN_ALUNOS = 3;
-    public static final int MAX_ALUNOS = 60;
-
-
-     public Disciplina(String codigo, String materia, int creditos, Professor professor) {
-        this.codigo = codigo;
-        this.materia = materia;
-        this.creditos = creditos;
-        this.professor = professor;
-        this.alunos = new ArrayList<>();
-        this.ativa = false;
-        this.obrigatoria = false;
-    }
-
     
-    public boolean adicionarAluno(Aluno aluno) {
-        return false;
+    private String nome;
+    private String codigo;
+    private static final int maxAlunos = 60;
+    private static final int minAlunos = 3;
+    private boolean obrigatorio;
+    private List<Aluno> alunos;
+
+    public Disciplina(String nome, String codigo, boolean obrigatorio) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.obrigatorio = obrigatorio;
+        this.alunos = new ArrayList<>();
     }
 
-    public boolean removerAluno(Aluno aluno) {
-        return false;
+    public String getNome() {
+        return nome;
     }
 
-    public boolean verificarAtividade() {
-        return false;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
-    }
-
-
-    public String getMateria() {
-        return materia;
-    }
-
-
-    public void setMateria(String materia) {
-        this.materia = materia;
-    }
-
-
-    public boolean isObrigatoria() {
-        return obrigatoria;
-    }
-
-
-    public void setObrigatoria(boolean obrigatoria) {
-        this.obrigatoria = obrigatoria;
-    }
-
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-
 
     public String getCodigo() {
         return codigo;
@@ -89,29 +35,40 @@ public class Disciplina {
         this.codigo = codigo;
     }
 
-    public boolean isAtiva() {
-        return ativa;
+    public boolean isObrigatorio() {
+        return obrigatorio;
     }
 
-    public void setAtiva(boolean ativa) {
-        this.ativa = ativa;
+    public void setObrigatorio(boolean obrigatorio) {
+        this.obrigatorio = obrigatorio;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public List<Aluno> getAlunos() {
+        return alunos;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
-    public int getCreditos() {
-        return creditos;
+    public boolean validarDisciplina(){
+        //stub
+        return true;
     }
 
-    public void setCreditos(int creditos) {
-        this.creditos = creditos;
+    public void adicionarAluno(Aluno aluno){
+        //stub
     }
+
+    public void removerAluno(Aluno aluno){
+        //stub
+    }
+
+    public boolean verificarPeriodo(){
+        //stub
+        return true;
+    }
+
     
 }
 

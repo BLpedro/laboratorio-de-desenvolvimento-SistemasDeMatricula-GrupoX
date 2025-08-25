@@ -5,40 +5,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Usuario {
-    private String matricula;
-    private List<Matricula> historico;
-
-    public Aluno(String nome, String email, String senha, String matricula) {
-        super(nome, email, senha);
+    
+    private int matricula;
+    private List<Disciplina> disciplinas;
+    
+    public Aluno(String nome, String senha, int matricula) {
+        super(nome, senha);
         this.matricula = matricula;
-        this.historico = new ArrayList<>();
+        this.disciplinas = new ArrayList<>();
     }
 
-    public void inscreverDisciplina(Disciplina disciplina) {
-        // stub
-    }
-
-    public void cancelarMatricula(Disciplina disciplina) {
-        // stub
-    }
-
-    public void consultarDisciplinasMatriculadas() {
-        // stub
-    }
-
-    public String getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(String matricula) {
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
-    public List<Matricula> getHistorico() {
-        return historico;
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    public void setHistorico(List<Matricula> historico) {
-        this.historico = historico;
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
+
+    public void matricularDisciplina(Disciplina disciplina){
+        //stub
+    }
+
+    public void desmatricularDiscipina(Disciplina disciplina){
+        //stub
+    }
+
+   
 }

@@ -3,34 +3,44 @@ package src;
 import java.util.List;
 
 public class Curso {
-    String nome;
-    int creditos;
     
-    List<Disciplina> disciplinas;
+    private String nome;
+    private int credito;
+    private List<Curriculo> curriculos;
 
-     public Curso(String nome, int creditos, List<Disciplina> disciplinas) {
+    public Curso(String nome, int credito, List<Curriculo> curriculos) {
         this.nome = nome;
-        this.creditos = creditos;
-        this.disciplinas = disciplinas;
+        this.credito = credito;
+        this.curriculos = curriculos;
     }
 
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public int getCreditos() {
-        return creditos;
+
+    public int getCredito() {
+        return credito;
     }
-    public void setCreditos(int creditos) {
-        this.creditos = creditos;
+
+    public void setCredito(int credito) {
+        this.credito = credito;
     }
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
+
+    public List<Curriculo> getCurriculos() {
+        return curriculos;
     }
-    public void setDisciplinas(List<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
-    } 
-    
+
+    public void setCurriculos(List<Curriculo> curriculos) {
+        this.curriculos = curriculos;
+    }
+
+    public void adicionarCurriculo(Curriculo curriculo){
+        //stub
+    }
+
+
 }
