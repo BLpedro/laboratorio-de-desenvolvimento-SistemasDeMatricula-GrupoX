@@ -35,9 +35,10 @@ public class Aluno extends Usuario {
         //stub
     }
 
-    public void desmatricularDiscipina(Disciplina disciplina){
+    public void desmatricularDisciplina(Disciplina disciplina){
         //stub
     }
 
    
 }
+
