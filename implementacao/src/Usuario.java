@@ -11,7 +11,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public void ligin(){}
+    public void login(){}
        
     public void cadastrar(){}
 
@@ -42,3 +42,4 @@ public abstract class Usuario {
     }
       
 }
+
