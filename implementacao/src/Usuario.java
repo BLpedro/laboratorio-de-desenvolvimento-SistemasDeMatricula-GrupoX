@@ -4,16 +4,33 @@ public abstract class Usuario {
     
     protected String nome;
     protected String senha;
-    int id;
-
+    protected int id;
+    protected static int proxMatricula = 0;
+    
     public Usuario(String nome, String senha) {
         this.nome = nome;
         this.senha = senha;
+        this.id = proxMatricula;
+        Usuario.proxMatricula++;
+
     }
 
-    public void login(){}
+    public boolean login(int id, String senha){
+
+        boolean valido = false;
+
+        if(this.id == id && this.senha == senha)
+            valido = true;
+
+        return valido;
+
+    }
        
-    public void cadastrar(){}
+    public void cadastrar(String nome, String senha){     
+        
+    }
+
+
 
     public String getNome() {
         return nome;
@@ -22,8 +39,6 @@ public abstract class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    // ...existing code...
 
     public String getSenha() {
         return senha;
