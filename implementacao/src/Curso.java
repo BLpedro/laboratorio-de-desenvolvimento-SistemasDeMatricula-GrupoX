@@ -6,12 +6,12 @@ public class Curso {
     
     private String nome;
     private int credito;
-    private List<Curriculo> curriculos;
+    private List<Disciplina> disciplinas;
 
-    public Curso(String nome, int credito, List<Curriculo> curriculos) {
+    public Curso(String nome, int credito, List<Disciplina> disciplinas) {
         this.nome = nome;
         this.credito = credito;
-        this.curriculos = curriculos;
+        this.disciplinas = disciplinas;
     }
 
     public String getNome() {
@@ -30,15 +30,15 @@ public class Curso {
         this.credito = credito;
     }
 
-    public List<Curriculo> getCurriculos() {
-        return curriculos;
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
-    public void setCurriculos(List<Curriculo> curriculos) {
-        this.curriculos = curriculos;
+    public void setdisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 
-    public void adicionarCurriculo(Curriculo curriculo){
+    public void adicionardisciplina(Disciplina disciplina){
         //stub
     }
 
