@@ -1,50 +1,13 @@
 package src;
 
-public abstract class Usuario {
-    
-    protected String nome;
-    protected String senha;
-    protected int id;
-    protected static int proxMatricula = 0;
-    
-    public Usuario(String nome, String senha) {
+public class Usuario {
+    private final int id;
+    private final String nome;
+    private final String senha;
+
+    public Usuario(int id, String nome, String senha) {
+        this.id = id;
         this.nome = nome;
-        this.senha = senha;
-        this.id = proxMatricula;
-        Usuario.proxMatricula++;
-
-    }
-
-    public boolean login(int id, String senha){
-
-        boolean valido = false;
-
-        if(this.id == id && this.senha == senha)
-            valido = true;
-
-        return valido;
-
-    }
-       
-    public void cadastrar(String nome, String senha){     
-        
-    }
-
-
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
         this.senha = senha;
     }
 
@@ -52,9 +15,26 @@ public abstract class Usuario {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getNome() {
+        return nome;
     }
-      
+
+    public String getSenha() {
+        return senha;
+    }
+
+@Override
+public String toString() {
+    return id + ";" + nome + ";" + senha + ";" + this.getClass().getSimpleName();
 }
 
+
+    public static Usuario fromString(String linha) {
+        String[] partes = linha.split(";");
+        return new Usuario(
+            Integer.parseInt(partes[0]),
+            partes[1],
+            partes[2]
+        );
+    }
+}

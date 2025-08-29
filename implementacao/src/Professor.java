@@ -2,8 +2,8 @@ package src;
 
 public class Professor extends Usuario {
     
-    public Professor(String nome, String senha) {
-        super(nome, senha);
+    public Professor(int id, String nome, String senha) {
+        super(id, nome, senha);
     }
 
     public void verificarAlunosMatriculados(Disciplina disciplina) {

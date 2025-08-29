@@ -1,6 +1,5 @@
 package src;
 
-import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +83,16 @@ public class Disciplina {
 
     //--------------------------------------------------
 
+
+        public void abrir() {
+        this.podeMatricular = true;
+    }
+
+    public void fechar() {
+        this.podeMatricular = false;
+    }
+
+    
     public boolean isPodeMatricular() {
         return podeMatricular;
     }
