@@ -5,14 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public abstract class Usuario {
-    private static int contador = 0; // gera IDs automáticos
+    private static int contador = 0; 
 
     private final int id;
     private final String nome;
     private final String senha;
 
     public Usuario(String nome, String senha) {
-        this.id = ++contador; // cada novo usuário recebe um ID único
+        this.id = ++contador; 
         this.nome = nome;
         this.senha = senha;
     }
@@ -52,12 +52,12 @@ public abstract class Usuario {
                 String tipo = partes[3];
 
                 if (idArq == id && senhaArq.equals(senha)) {
-                    // Recria o objeto do tipo correto
+                   
                     switch (tipo) {
                         case "Aluno":
-                            return new Aluno(idArq, nomeArq, senhaArq, 0); // matricula fictícia (ajustar depois)
+                            return new Aluno(nomeArq, senhaArq); 
                         case "Professor":
-                            return new Professor(idArq, nomeArq, senhaArq); // supondo que exista
+                            return new Professor(nomeArq, senhaArq); 
                         default:
                             return null;
                     }

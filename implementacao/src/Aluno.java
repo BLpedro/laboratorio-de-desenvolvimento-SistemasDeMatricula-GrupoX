@@ -5,12 +5,10 @@ import java.util.List;
 
 public class Aluno extends Usuario {
     
-    private int matricula;
     private List<Disciplina> disciplinas;
     
-    public Aluno(int id, String nome, String senha, int matricula) {
-        super(id, nome, senha);
-        this.matricula = matricula;
+    public Aluno(String nome, String senha) {
+        super(nome, senha);
         this.disciplinas = new ArrayList<>();
     }
 
@@ -33,13 +31,6 @@ public class Aluno extends Usuario {
 
 //-----------------------------------------------
 
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
 
     public List<Disciplina> getDisciplinas() {
         return new ArrayList<>(disciplinas); 
