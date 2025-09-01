@@ -8,8 +8,8 @@ public class Secretaria extends Usuario{
     private List<Professor> professor;
     private List<Disciplina> disciplinas;
 
-    public Secretaria(int id, String nome, String senha, List<Aluno> alunos, List<Professor> professor, List<Disciplina> disciplinas) {
-        super(id, nome, senha);
+    public Secretaria(String nome, String senha, List<Aluno> alunos, List<Professor> professor, List<Disciplina> disciplinas) {
+        super(nome, senha);
         this.alunos = alunos;
         this.professor = professor;
         this.disciplinas = disciplinas;
