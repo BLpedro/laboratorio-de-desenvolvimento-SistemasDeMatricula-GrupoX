@@ -2,73 +2,36 @@ package src;
 
 import java.util.List;
 
-public class Secretaria extends Usuario{
+public class Secretaria extends Usuario {
 
-    private List<Aluno> alunos;
-    private List<Professor> professor;
-    private List<Disciplina> disciplinas;
-
-    public Secretaria(String nome, String senha, List<Aluno> alunos, List<Professor> professor, List<Disciplina> disciplinas) {
+    public Secretaria(String nome, String senha) {
         super(nome, senha);
-        this.alunos = alunos;
-        this.professor = professor;
-        this.disciplinas = disciplinas;
     }
 
-    public void gerarCurriculo(Curso curso){
-        //stub
+    // Alunos
+    public void adicionarAluno(Aluno aluno, List<Aluno> alunos) {
+        alunos.add(aluno);
     }
 
-    public void manterInformacoes(){
-        //stub
+    public void removerAluno(Aluno aluno, List<Aluno> alunos) {
+        alunos.remove(aluno);
     }
 
-    public void adicionarAluno(Aluno aluno){
-        //stub
+    // Professores
+    public void adicionarProfessor(Professor professor, List<Professor> professores) {
+        professores.add(professor);
     }
 
-    public void removerAluno(Aluno aluno){
-        //stub
+    public void removerProfessor(Professor professor, List<Professor> professores) {
+        professores.remove(professor);
     }
 
-    public void adicionarProfessor(Professor professor){
-        //stub
+    // Disciplinas
+    public void adicionarDisciplina(Disciplina disciplina, List<Disciplina> disciplinas) {
+        disciplinas.add(disciplina);
     }
 
-    public void removerProfessor(Professor professor){
-        //stub
+    public void removerDisciplina(Disciplina disciplina, List<Disciplina> disciplinas) {
+        disciplinas.remove(disciplina);
     }
-    
-    public void adicionarDisciplina(Disciplina disciplina){
-        //stub
-    }
-
-    public void removerDisciplina(Disciplina disciplina){
-        //stub
-    }
-    
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
-    }
-
-    public List<Professor> getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(List<Professor> professor) {
-        this.professor = professor;
-    }
-
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
-
-    public void setDisciplinas(List<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
-
 }

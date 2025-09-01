@@ -34,7 +34,7 @@ public class UsuarioCRUD {
         List<Usuario> usuarios = listarUsuarios();
         for (Usuario u : usuarios) {
             if (u.getId() == id) {
-                usuarios.set(usuarios.indexOf(u), new Usuario(id, novoNome, novaSenha));
+                usuarios.set(usuarios.indexOf(u), new Usuario(novoNome, novaSenha));
                 break;
             }
         }
