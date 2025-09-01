@@ -1,1 +1,2 @@
-eng de software;100;
+Engenharia;120;MAT101,FIS101,QUI101
+Pedagogia;100;HIS101,MAT101

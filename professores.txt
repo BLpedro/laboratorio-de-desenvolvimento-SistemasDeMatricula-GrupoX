@@ -1,1 +1,3 @@
-2;joao;1234
+1;Carlos;prof1
+2;Luciana;prof2
+3;Eduardo;prof3
