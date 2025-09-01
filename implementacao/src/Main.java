@@ -1,157 +1,247 @@
 package src;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
-public class Main {    private static boolean periodoMatriculaAberto = false; // flag simples
-    private static List<Usuario> usuarios = new ArrayList<>();
-    private static List<Disciplina> disciplinas = new ArrayList<>();
+public class Main {
+
+    private static Scanner sc = new Scanner(System.in);
+    private static List<Aluno> alunos;
+    private static List<Professor> professores;
+    private static List<Disciplina> disciplinas;
+    private static List<Curso> cursos;
+    private static Secretaria secretaria;
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int opcao;
 
-        do {
-            System.out.println("\n==== MENU ====");
-            System.out.println("1 - Cadastrar Usuário");
-            System.out.println("2 - Abrir Disciplina");
-            System.out.println("3 - Fechar Disciplina");
-            System.out.println("4 - Listar Disciplinas");
-            System.out.println("5 - Verificar período de matrícula");
-            System.out.println("6 - Alternar período de matrícula (abrir/fechar)");
-            System.out.println("7 - Matrícular aluno em diciplina (abrir/fechar)");
-            System.out.println("0 - Sair");
-            System.out.print("Escolha: ");
-            opcao = sc.nextInt();
-            sc.nextLine(); 
+        // --- CARREGAR DADOS ---
+        alunos = ArquivoUtils.carregarAlunos("alunos.txt");
+        professores = ArquivoUtils.carregarProfessores("professores.txt");
+        disciplinas = ArquivoUtils.carregarDisciplinas("disciplinas.txt", professores, alunos);
+        cursos = ArquivoUtils.carregarCursos("cursos.txt", disciplinas);
+
+        secretaria = new Secretaria("Secretaria", "1234");
+
+        boolean sair = false;
+
+        while (!sair) {
+            mostrarMenu();
+            int opcao = sc.nextInt();
+            sc.nextLine();
 
             switch (opcao) {
-                case 1:
-                    cadastrarUsuario(sc);
-                    break;
-                case 2:
-                    abrirDisciplina(sc);
-                    break;
-                case 3:
-                    fecharDisciplina(sc);
-                    break;
-                case 4:
-                    listarDisciplinas();
-                    break;
-                case 5:
-                    verificarPeriodoMatricula();
-                    break;
-                case 6:
-                    alternarPeriodoMatricula();
-                    break;
-                case 7:
-                    EntrarEmDisciplina()    ;
-                case 0:
-                    System.out.println("Encerrando...");
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
+                case 1 -> abrirPeriodo();
+                case 2 -> fecharPeriodo();
+                case 3 -> cadastrarAluno();
+                case 4 -> cadastrarProfessor();
+                case 5 -> cadastrarDisciplina();
+                case 6 -> criarCurso();
+                case 7 -> matricularAluno();
+                case 8 -> desmatricularAluno();
+                case 9 -> listarAlunosDisciplina();
+                case 10 -> listarDisciplinasCurso();
+                case 11 -> encerrarMatricula();
+                case 0 -> {
+                    sair = true;
+                    System.out.println("Saindo do sistema...");
+                }
+                default -> System.out.println("Opção inválida!");
             }
-        } while (opcao != 0);
+        }
 
         sc.close();
     }
 
-    // --- FUNÇÕES AUXILIARES ---
-
-private static void cadastrarUsuario(Scanner sc) {
-    System.out.println("Tipo de usuário (1=Aluno, 2=Professor, 3=Secretário): ");
-    int tipo = sc.nextInt();
-    sc.nextLine();
-
-    System.out.print("Nome: ");
-    String nome = sc.nextLine();
-    System.out.print("Senha: ");
-    String senha = sc.nextLine();
-    int id = usuarios.size() + 1;
-    int matricula = usuarios.size() + 1;
-List<Aluno> alunos = new ArrayList<>();
-List<Professor> professor = new ArrayList<>();
-List<Disciplina> disciplinas = new ArrayList<>();
-
-    Usuario u;
-    switch (tipo) {
-        case 1:
-            u = new Aluno(id, nome, senha, matricula);
-            break;
-        case 2:
-            u = new Professor(id, nome, senha);
-            break;
-        case 3:
-            u = new Secretaria(id, nome, senha, alunos, professor, disciplinas);
-            break;
-        default:
-            u = new Usuario(id, nome, senha);
+    private static void mostrarMenu() {
+        System.out.println("\n===== SISTEMA UNIVERSITÁRIO =====");
+        System.out.println("1 - Abrir período de matrícula");
+        System.out.println("2 - Fechar período de matrícula");
+        System.out.println("3 - Cadastrar aluno");
+        System.out.println("4 - Cadastrar professor");
+        System.out.println("5 - Cadastrar disciplina");
+        System.out.println("6 - Criar curso");
+        System.out.println("7 - Matricular aluno em disciplina");
+        System.out.println("8 - Desmatricular aluno de disciplina");
+        System.out.println("9 - Ver alunos matriculados em disciplina (Professor)");
+        System.out.println("10 - Listar disciplinas de um curso");
+        System.out.println("11 - Encerrar período de matrícula");
+        System.out.println("0 - Sair");
+        System.out.print("Escolha uma opção: ");
     }
 
-    usuarios.add(u);
-
-    // salva no arquivo também
-    UsuarioCRUD crud = new UsuarioCRUD();
-    try {
-        crud.adicionarUsuario(u);
-    } catch (IOException e) {
-        System.out.println("Erro ao salvar usuário no arquivo: " + e.getMessage());
+    private static void abrirPeriodo() {
+        secretaria.abrirMatricula();
+        System.out.println("Período de matrícula aberto!");
     }
 
-    System.out.println("Usuário cadastrado: " + u.getNome() + " (" + u.getClass().getSimpleName() + ")");
-}
+    private static void fecharPeriodo() {
+        secretaria.fecharMatricula();
+        System.out.println("Período de matrícula fechado!");
+    }
 
-   private static void abrirDisciplina(Scanner sc) {
-    System.out.print("Nome da disciplina: ");
-    String nome = sc.nextLine();
+    private static void cadastrarAluno() {
+        System.out.print("Nome do aluno: ");
+        String nomeAluno = sc.nextLine();
+        System.out.print("Senha do aluno: ");
+        String senhaAluno = sc.nextLine();
+        Aluno aluno = new Aluno(nomeAluno, senhaAluno);
+        secretaria.adicionarAluno(aluno, alunos);
+        ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
+        System.out.println("Aluno cadastrado com sucesso!");
+    }
 
-    System.out.print("Código da disciplina: ");
-    String codigo = sc.nextLine();
+    private static void cadastrarProfessor() {
+        System.out.print("Nome do professor: ");
+        String nomeProf = sc.nextLine();
+        System.out.print("Senha do professor: ");
+        String senhaProf = sc.nextLine();
+        Professor professor = new Professor(nomeProf, senhaProf);
+        secretaria.adicionarProfessor(professor, professores);
+        ArquivoUtils.salvarProfessores(professores, "professores.txt");
+        System.out.println("Professor cadastrado com sucesso!");
+    }
 
-    System.out.print("É obrigatória? (s/n): ");
-    boolean obrigatorio = sc.nextLine().equalsIgnoreCase("s");
-
-    System.out.print("Nome do professor responsável: ");
-    String nomeProfessor = sc.nextLine();
-    Professor professor = new Professor(1, nomeProfessor, "1234"); 
-    Disciplina d = new Disciplina(nome, codigo, obrigatorio, professor);
-    d.abrir();
-    disciplinas.add(d);
-    System.out.println("Disciplina aberta: " + d.getNome());
-}
-
-    private static void fecharDisciplina(Scanner sc) {
-    System.out.print("Nome da disciplina: ");
-    String nome = sc.nextLine();
-    for (Disciplina d : disciplinas) {
-        if (d.getNome().equalsIgnoreCase(nome)) {
-            d.fechar();
-            System.out.println("Disciplina fechada: " + d.getNome());
+    private static void cadastrarDisciplina() {
+        if (professores.isEmpty()) {
+            System.out.println("Cadastre um professor antes!");
             return;
         }
+
+        System.out.print("Nome da disciplina: ");
+        String nomeDisc = sc.nextLine();
+        System.out.print("Código da disciplina: ");
+        String codigoDisc = sc.nextLine();
+        System.out.print("É obrigatória? (s/n): ");
+        boolean obrigatoria = sc.nextLine().equalsIgnoreCase("s");
+
+        System.out.println("Selecione o professor:");
+        for (int i = 0; i < professores.size(); i++)
+            System.out.println(i + " - " + professores.get(i).getNome());
+        int profIndex = sc.nextInt();
+        sc.nextLine();
+
+        Professor profSelecionado = professores.get(profIndex);
+        Disciplina d = new Disciplina(nomeDisc, codigoDisc, obrigatoria, profSelecionado);
+        secretaria.adicionarDisciplina(d, disciplinas);
+        ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
+        System.out.println("Disciplina cadastrada com sucesso!");
     }
-    System.out.println("Disciplina não encontrada.");
-}
-    private static void listarDisciplinas() {
-        if (disciplinas.isEmpty()) {
-            System.out.println("Nenhuma disciplina cadastrada.");
+
+    private static void criarCurso() {
+        System.out.print("Nome do curso: ");
+        String nomeCurso = sc.nextLine();
+        System.out.print("Créditos do curso: ");
+        int credito = sc.nextInt();
+        sc.nextLine();
+
+        Curso curso = new Curso(nomeCurso, credito);
+        cursos.add(curso);
+        ArquivoUtils.salvarCursos(cursos, "cursos.txt");
+        System.out.println("Curso criado com sucesso!");
+    }
+
+    private static void matricularAluno() {
+        if (alunos.isEmpty() || disciplinas.isEmpty()) {
+            System.out.println("Cadastre alunos e disciplinas antes!");
             return;
         }
-        System.out.println("Disciplinas:");
-        for (Disciplina d : disciplinas) {
-            System.out.println("- " + d);
+
+        System.out.println("Selecione o aluno:");
+        for (int i = 0; i < alunos.size(); i++)
+            System.out.println(i + " - " + alunos.get(i).getNome());
+        int alunoIndex = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Selecione a disciplina:");
+        for (int i = 0; i < disciplinas.size(); i++)
+            System.out.println(i + " - " + disciplinas.get(i).getNome());
+        int discIndex = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            alunos.get(alunoIndex).matricularDisciplina(disciplinas.get(discIndex), secretaria);
+            ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
+            ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
+            System.out.println("Aluno matriculado com sucesso!");
+        } catch (RuntimeException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
-    private static void verificarPeriodoMatricula() {
-        System.out.println("Período de matrícula está " + 
-            (periodoMatriculaAberto ? "ABERTO" : "FECHADO"));
+    private static void desmatricularAluno() {
+        if (alunos.isEmpty() || disciplinas.isEmpty()) {
+            System.out.println("Cadastre alunos e disciplinas antes!");
+            return;
+        }
+
+        System.out.println("Selecione o aluno:");
+        for (int i = 0; i < alunos.size(); i++)
+            System.out.println(i + " - " + alunos.get(i).getNome());
+        int alunoDesIndex = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Selecione a disciplina:");
+        for (int i = 0; i < disciplinas.size(); i++)
+            System.out.println(i + " - " + disciplinas.get(i).getNome());
+        int discDesIndex = sc.nextInt();
+        sc.nextLine();
+
+        try {
+            alunos.get(alunoDesIndex).desmatricularDisciplina(disciplinas.get(discDesIndex), secretaria);
+            ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
+            ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
+            System.out.println("Aluno desmatriculado com sucesso!");
+        } catch (RuntimeException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
-    private static void alternarPeriodoMatricula() {
-        periodoMatriculaAberto = !periodoMatriculaAberto;
-        System.out.println("Período de matrícula agora está " + 
-            (periodoMatriculaAberto ? "ABERTO" : "FECHADO"));
+    private static void listarAlunosDisciplina() {
+        if (professores.isEmpty() || disciplinas.isEmpty()) {
+            System.out.println("Cadastre professores e disciplinas antes!");
+            return;
+        }
+
+        System.out.println("Selecione o professor:");
+        for (int i = 0; i < professores.size(); i++)
+            System.out.println(i + " - " + professores.get(i).getNome());
+        int profVerIndex = sc.nextInt();
+        sc.nextLine();
+
+        Professor prof = professores.get(profVerIndex);
+
+        System.out.println("Selecione a disciplina:");
+        for (int i = 0; i < disciplinas.size(); i++)
+            if (disciplinas.get(i).getProfessor() == prof)
+                System.out.println(i + " - " + disciplinas.get(i).getNome());
+        int discVerIndex = sc.nextInt();
+        sc.nextLine();
+
+        prof.verificarAlunosMatriculados(disciplinas.get(discVerIndex));
+    }
+
+    private static void listarDisciplinasCurso() {
+        if (cursos.isEmpty()) {
+            System.out.println("Cadastre cursos antes!");
+            return;
+        }
+
+        System.out.println("Selecione o curso:");
+        for (int i = 0; i < cursos.size(); i++)
+            System.out.println(i + " - " + cursos.get(i).getNome());
+        int cursoIndex = sc.nextInt();
+        sc.nextLine();
+
+        Curso cSelecionado = cursos.get(cursoIndex);
+        System.out.println("Disciplinas do curso " + cSelecionado.getNome() + ":");
+        for (Disciplina disc : cSelecionado.getDisciplinas())
+            System.out.println("- " + disc.getNome());
+    }
+
+    private static void encerrarMatricula() {
+        secretaria.encerrarMatriculas(disciplinas);
+        ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
+        ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
+        System.out.println("Período encerrado e disciplinas verificadas!");
     }
 }
