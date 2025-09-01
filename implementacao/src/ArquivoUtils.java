@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,7 +22,10 @@ public class ArquivoUtils {
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(";");
                 if (partes.length >= 3) {
-                    Aluno a = new Aluno(partes[1], partes[2]);
+                    int id = Integer.parseInt(partes[0]);
+                    String nome = partes[1];
+                    String senha = partes[2];
+                    Aluno a = new Aluno(id, nome, senha);
                     alunos.add(a);
                 }
             }
@@ -46,7 +49,10 @@ public class ArquivoUtils {
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(";");
                 if (partes.length >= 3) {
-                    Professor p = new Professor(partes[1], partes[2]);
+                    int id = Integer.parseInt(partes[0]);
+                    String nome = partes[1];
+                    String senha = partes[2];
+                    Professor p = new Professor(id, nome, senha);
                     professores.add(p);
                 }
             }

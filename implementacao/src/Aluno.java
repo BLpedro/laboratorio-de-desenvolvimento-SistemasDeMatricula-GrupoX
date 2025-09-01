@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,13 @@ public class Aluno extends Usuario {
 
     private static final int MAX_OBRIGATORIAS = 4;
     private static final int MAX_OPTATIVAS = 2;
+
+    public Aluno(int id, String nome, String senha) {
+        super(id, nome, senha);
+        this.disciplinas = new ArrayList<>();
+        this.obrigatoriasMatriculadas = 0;
+        this.optativasMatriculadas = 0;
+    }
 
     public Aluno(String nome, String senha) {
         super(nome, senha);

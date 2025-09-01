@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,9 +7,16 @@ import java.io.IOException;
 public abstract class Usuario {
     private static int contador = 0;
 
-    private final int id;
+    protected final int id;
     private final String nome;
     private final String senha;
+
+    public Usuario(int id, String nome, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        if (id > contador) contador = id;
+    }
 
     public Usuario(String nome, String senha) {
         this.id = ++contador;

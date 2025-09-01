@@ -2,3 +2,4 @@ MAT101;Matemática;true;1;1,2
 FIS101;Física;true;2;2,3
 QUI101;Química;true;3;3,4
 HIS101;História;false;1;1
+CALC101;Caculo;true;3;
