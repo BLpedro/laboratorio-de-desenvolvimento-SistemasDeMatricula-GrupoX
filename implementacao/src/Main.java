@@ -25,14 +25,15 @@ public class Main {
         boolean sair = false;
 
         while (!sair) {
-            mostrarMenu();
+            mostrarMenuPrincipal();
             int opcao = sc.nextInt();
             sc.nextLine();
 
+            
             switch (opcao) {
-                case 1 -> abrirPeriodo();
-                case 2 -> fecharPeriodo();
-                case 3 -> cadastrarAluno();
+                case 1 -> mostrarMenuSecretaria();
+                case 2 -> mostrarMenuAluno();
+                case 3 -> mostrarMenuProfessor();
                 case 4 -> cadastrarProfessor();
                 case 5 -> cadastrarDisciplina();
                 case 6 -> criarCurso();
@@ -53,23 +54,90 @@ public class Main {
         sc.close();
     }
 
-    private static void mostrarMenu() {
+    private static void mostrarMenuPrincipal() {
         System.out.println("\n===== SISTEMA UNIVERSITÁRIO =====");
-        System.out.println("1 - Abrir período de matrícula");
-        System.out.println("2 - Fechar período de matrícula");
-        System.out.println("3 - Cadastrar aluno");
-        System.out.println("4 - Cadastrar professor");
-        System.out.println("5 - Cadastrar disciplina");
-        System.out.println("6 - Criar curso");
-        System.out.println("7 - Matricular aluno em disciplina");
-        System.out.println("8 - Desmatricular aluno de disciplina");
-        System.out.println("9 - Ver alunos matriculados em disciplina (Professor)");
-        System.out.println("10 - Listar disciplinas de um curso");
-        System.out.println("11 - Encerrar período de matrícula");
-        System.out.println("12 - Adicionar disciplina a um curso");
+        System.out.println("1 - Acessar como Secretaria");
+        System.out.println("2 - Acessar como Aluno");
+        System.out.println("3 - Acessar como Professor");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
+    
+
+    private static void mostrarMenuSecretaria() {
+        boolean voltar = false;
+        while (!voltar) {
+            System.out.println("\n===== MENU SECRETARIA =====");
+            System.out.println("1 - Abrir período de matrícula");
+            System.out.println("2 - Fechar período de matrícula");
+            System.out.println("3 - Cadastrar aluno");
+            System.out.println("4 - Cadastrar professor");
+            System.out.println("5 - Cadastrar disciplina");
+            System.out.println("6 - Criar curso");
+            System.out.println("10 - Listar disciplinas de um curso");
+            System.out.println("11 - Encerrar período de matrícula");
+            System.out.println("12 - Adicionar disciplina a um curso");
+            System.out.println("0 - Voltar");
+            System.out.print("Escolha uma opção: ");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+    
+            switch (opcao) {
+                case 1 -> abrirPeriodo();
+                case 2 -> fecharPeriodo();
+                case 3 -> cadastrarAluno();
+                case 4 -> cadastrarProfessor();
+                case 5 -> cadastrarDisciplina();
+                case 6 -> criarCurso();
+                case 10 -> listarDisciplinasCurso();
+                case 11 -> encerrarMatricula();
+                case 12 -> adicionarDisciplinaCurso();
+                case 0 -> voltar = true;
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+    }
+    
+
+    private static void mostrarMenuAluno() {
+        boolean voltar = false;
+        while (!voltar) {
+            System.out.println("\n===== MENU ALUNO =====");
+            System.out.println("7 - Matricular em disciplina");
+            System.out.println("8 - Cancelar matrícula em disciplina");
+            System.out.println("0 - Voltar");
+            System.out.print("Escolha uma opção: ");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+    
+            switch (opcao) {
+                case 7 -> matricularAluno();
+                case 8 -> desmatricularAluno();
+                case 0 -> voltar = true;
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+    }
+    private static void mostrarMenuProfessor() {
+        boolean voltar = false;
+        while (!voltar) {
+            System.out.println("\n===== MENU PROFESSOR =====");
+            System.out.println("9 - Ver alunos matriculados em disciplina");
+            System.out.println("0 - Voltar");
+            System.out.print("Escolha uma opção: ");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+    
+            switch (opcao) {
+                case 9 -> listarAlunosDisciplina();
+                case 0 -> voltar = true;
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+    }
+    
+    
+
 
     private static void abrirPeriodo() {
         secretaria.abrirMatricula();
