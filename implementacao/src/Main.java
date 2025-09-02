@@ -159,7 +159,11 @@ public class Main {
         sc.nextLine();
 
         try {
-            alunos.get(alunoIndex).matricularDisciplina(disciplinas.get(discIndex), secretaria);
+            Aluno aluno = alunos.get(alunoIndex);
+            Disciplina disciplina = disciplinas.get(discIndex);
+            aluno.matricularDisciplina(disciplina, secretaria);
+            // Atualiza lista de disciplinas do aluno para garantir contadores corretos
+            aluno.setDisciplinas(aluno.getDisciplinas());
             ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
             ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
             System.out.println("Aluno matriculado com sucesso!");
