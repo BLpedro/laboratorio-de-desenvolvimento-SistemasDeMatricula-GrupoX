@@ -41,6 +41,7 @@ public class Main {
                 case 9 -> listarAlunosDisciplina();
                 case 10 -> listarDisciplinasCurso();
                 case 11 -> encerrarMatricula();
+                case 12 -> adicionarDisciplinaCurso();
                 case 0 -> {
                     sair = true;
                     System.out.println("Saindo do sistema...");
@@ -65,6 +66,7 @@ public class Main {
         System.out.println("9 - Ver alunos matriculados em disciplina (Professor)");
         System.out.println("10 - Listar disciplinas de um curso");
         System.out.println("11 - Encerrar período de matrícula");
+        System.out.println("12 - Adicionar disciplina a um curso");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -248,4 +250,32 @@ public class Main {
         ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
         System.out.println("Período encerrado e disciplinas verificadas!");
     }
+
+    private static void adicionarDisciplinaCurso() {
+
+        if (cursos.isEmpty() || disciplinas.isEmpty()) {
+            System.out.println("Cadastre cursos e disciplinas antes!");
+            return;
+        }
+
+        System.out.println("Selecione o curso:");
+        for (int i = 0; i < cursos.size(); i++)
+            System.out.println(i + " - " + cursos.get(i).getNome());
+        int cursoIndex = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Selecione a disciplina para adicionar:");
+        for (int i = 0; i < disciplinas.size(); i++)
+            System.out.println(i + " - " + disciplinas.get(i).getNome());
+        int discIndex = sc.nextInt();
+        sc.nextLine();
+
+        Curso cursoSelecionado = cursos.get(cursoIndex);
+        Disciplina disciplinaSelecionada = disciplinas.get(discIndex);
+
+        cursoSelecionado.adicionarDisciplina(disciplinaSelecionada);
+        ArquivoUtils.salvarCursos(cursos, "cursos.txt");
+        System.out.println("Disciplina adicionada ao curso com sucesso!");
+    }
+
 }
