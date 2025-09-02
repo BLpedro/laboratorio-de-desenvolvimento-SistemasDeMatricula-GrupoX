@@ -91,24 +91,43 @@ public class ArquivoUtils {
                     if (prof == null) continue;
 
                     Disciplina d = new Disciplina(nome, codigo, obrigatoria, prof);
-
-                    // Reconstruir alunos matriculados
-                    if (partes.length >= 5 && !partes[4].isEmpty()) {
-                        String[] idsAlunos = partes[4].split(",");
-                        for (String sId : idsAlunos) {
-                            int idAluno = Integer.parseInt(sId);
-                            Aluno a = alunos.stream().filter(al -> al.getId() == idAluno).findFirst().orElse(null);
-                            if (a != null) {
-                                d.adicionarAluno(a);
-                                a.getDisciplinas().add(d); // Atualiza lista de disciplinas do aluno
-                            }
-                        }
-                    }
-
                     disciplinas.add(d);
                 }
             }
         } catch (IOException e) { e.printStackTrace(); }
+
+        // Segunda passada: associar alunos às disciplinas e reconstruir lista de disciplinas de cada aluno
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(";");
+                if (partes.length >= 5 && !partes[4].isEmpty()) {
+                    String codigo = partes[0];
+                    Disciplina d = disciplinas.stream().filter(di -> di.getCodigo().equals(codigo)).findFirst().orElse(null);
+                    if (d == null) continue;
+                    String[] idsAlunos = partes[4].split(",");
+                    for (String sId : idsAlunos) {
+                        int idAluno = Integer.parseInt(sId);
+                        Aluno a = alunos.stream().filter(al -> al.getId() == idAluno).findFirst().orElse(null);
+                        if (a != null) {
+                            d.adicionarAluno(a);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+
+        // Para cada aluno, reconstruir sua lista de disciplinas usando as instâncias globais
+        for (Aluno a : alunos) {
+            List<Disciplina> disciplinasDoAluno = new ArrayList<>();
+            for (Disciplina d : disciplinas) {
+                if (d.getAlunos().stream().anyMatch(al -> al.getId() == a.getId())) {
+                    disciplinasDoAluno.add(d);
+                }
+            }
+            a.setDisciplinas(disciplinasDoAluno);
+        }
+
         return disciplinas;
     }
 

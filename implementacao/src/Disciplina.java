@@ -41,8 +41,13 @@ public class Disciplina {
     }
 
     public void removerAluno(Aluno aluno) {
-        if (!alunos.remove(aluno))
+        // Busca aluno por id para evitar problemas de referência
+        Aluno alunoReal = alunos.stream()
+            .filter(a -> a.getId() == aluno.getId())
+            .findFirst().orElse(null);
+        if (alunoReal == null)
             throw new RuntimeException("Aluno não encontrado nesta disciplina!");
+        alunos.remove(alunoReal);
     }
 
     // Getters

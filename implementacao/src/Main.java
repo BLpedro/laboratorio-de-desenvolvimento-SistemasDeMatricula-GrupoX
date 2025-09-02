@@ -193,7 +193,11 @@ public class Main {
         sc.nextLine();
 
         try {
-            alunos.get(alunoDesIndex).desmatricularDisciplina(disciplinas.get(discDesIndex), secretaria);
+            Aluno aluno = alunos.get(alunoDesIndex);
+            Disciplina disciplina = disciplinas.get(discDesIndex);
+            aluno.desmatricularDisciplina(disciplina, secretaria);
+            // Atualiza lista de disciplinas do aluno para garantir contadores corretos
+            aluno.setDisciplinas(aluno.getDisciplinas());
             ArquivoUtils.salvarDisciplinas(disciplinas, "disciplinas.txt");
             ArquivoUtils.salvarAlunos(alunos, "alunos.txt");
             System.out.println("Aluno desmatriculado com sucesso!");

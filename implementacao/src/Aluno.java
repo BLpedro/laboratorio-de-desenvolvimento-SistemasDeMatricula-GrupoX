@@ -48,13 +48,21 @@ public class Aluno extends Usuario {
     public void desmatricularDisciplina(Disciplina disciplina, Secretaria secretaria) {
         if (!secretaria.isPeriodoMatriculaAberto())
             throw new RuntimeException("Não é possível desmatricular: período de matrícula fechado!");
-        if (!disciplinas.contains(disciplina))
+        // Busca disciplina por código na lista do aluno
+        Disciplina disciplinaParaRemover = null;
+        for (Disciplina d : disciplinas) {
+            if (d.getCodigo().equals(disciplina.getCodigo())) {
+                disciplinaParaRemover = d;
+                break;
+            }
+        }
+        if (disciplinaParaRemover == null)
             throw new RuntimeException("Aluno não está matriculado nesta disciplina!");
 
-        disciplina.removerAluno(this);
-        disciplinas.remove(disciplina);
+        disciplinaParaRemover.removerAluno(this);
+        disciplinas.remove(disciplinaParaRemover);
 
-        if (disciplina.isObrigatorio())
+        if (disciplinaParaRemover.isObrigatorio())
             obrigatoriasMatriculadas--;
         else
             optativasMatriculadas--;
